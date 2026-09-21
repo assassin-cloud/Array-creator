@@ -1,30 +1,69 @@
 #include<iostream>
 using namespace std;
 
-int main(){
-    int size;
-    string name;
-    char input;
-    cout << "Type y to continue or q to quit: " << endl;
-    cin >> input;
-    while(input == 'y'){
-    cout << "Enter name for your array: " << endl;
-    cin >> name;
-    cout << "how big do you want the array" << endl;
+void mainmenu(){
+    cout << "====================" << endl;
+    cout << "   Array Creator    " << endl;
+    cout << "====================" << endl;
+    cout << endl;
+    cout << "1. Create a array" << endl;
+    cout << "2. Exit" << endl;
+    cout << "Input:" << endl;
+}
+
+void create_display_array(){
+    cout << "Input the size of array:" << endl;
+    int size {};
     cin >> size;
-    int *p = new int[size];
-    cout << "Enter " << size << " numbers: " << endl;
-    for(int i=0;i<size;i++){
-        cin >> p[i];
+    if(size <= 0){
+        cout << "Invalid Input!" << endl;
     }
-    cout << "Here is the array you created: ";
-     cout << name << " = " ;
-    for(int i=0;i<size;i++){
-        cout << p[i] << " , ";
+    else{
+        double* p = new double[size];
+        for(int i=0;i<size;i++){
+            cout << "Input " << i+1 << " element(integers and decimel supported only)" << endl;
+            cin >> p[i];
+        }
+        cout << "Successfully created!" << endl;
+        cout << endl;
+        cout << "array you created:" << endl;
+        for(int i=0;i<size;i++){
+            cout << p[i] << " ,";
+        }
+        delete[] p;
+        p = nullptr;
+        cout << endl;
     }
-    delete[] p;
-    p = nullptr;
-    cout << "Type y to continue or q to quit: " << endl;
-    cin >> input;
+}
+
+void wait(){
+    cout << "Type anything:" << endl;
+    string anything;
+    cin >> anything;
+}
+
+int main(){
+    while(true){
+        mainmenu();
+        int userinput {};
+        cin >> userinput;
+        if(cin.fail()){
+            cout << "Invalid Input!" << endl;
+            cin.clear();
+            cin.ignore(1000, '\n');
+        }
+        else{
+            if(userinput == 1){
+                create_display_array();
+                wait();
+            }
+            else if(userinput == 2){
+                break;
+            }
+            else{
+                cout << "Invalid Input!" << endl;
+                wait();
+            }
+        }
     }
 }
